@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Pump.Telemetry.Monitor.Tests/Pump.Telemetry.Monitor.Tests.csproj" />
+  <Project Path="Pump.Telemetry.Monitor/Pump.Telemetry.Monitor.csproj" />
+</Solution>
