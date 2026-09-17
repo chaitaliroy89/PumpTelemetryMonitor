@@ -40,8 +40,10 @@ public class DataLossTracker
 
             if (newLoss > 10)  // Alert if more than 10 items lost since last check
             {
-                Console.WriteLine($"🔴 DATA LOSS ALERT: {newLoss} readings dropped due to buffer overflow (DropWrite)");
-                Console.WriteLine($"   Cumulative: Total written={_totalWriteAttempts} | Processed={_totalSuccessfulReads} | Lost={currentLoss}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"***DATA LOSS ALERT: {newLoss} readings dropped due to buffer overflow (DropWrite)");
+                Console.WriteLine($"***Cumulative: Total written={_totalWriteAttempts} | Processed={_totalSuccessfulReads} | Lost={currentLoss}");
+                Console.ResetColor();
                 _lastReportedLoss = currentLoss;
             }
         }
@@ -55,8 +57,8 @@ public class DataLossTracker
         lock (_lockObject)
         {
             long loss = _totalWriteAttempts - _totalSuccessfulReads;
-            double lossPercent = _totalWriteAttempts > 0 
-                ? (loss / (double)_totalWriteAttempts) * 100 
+            double lossPercent = _totalWriteAttempts > 0
+                ? (loss / (double)_totalWriteAttempts) * 100
                 : 0;
 
             return (_totalWriteAttempts, _totalSuccessfulReads, loss, lossPercent);
@@ -71,7 +73,7 @@ public class DataLossTracker
         var (total, processed, lost, lossPercent) = GetStats();
 
         Console.WriteLine("\n╔════════════════════════════════════════════════════════════╗");
-        Console.WriteLine("║           📊 DATA LOSS ANALYSIS - FINAL REPORT             ║");
+        Console.WriteLine("║            DATA LOSS ANALYSIS - FINAL REPORT             ║");
         Console.WriteLine("╚════════════════════════════════════════════════════════════╝");
         Console.WriteLine($"  Total Write Attempts:    {total:N0}");
         Console.WriteLine($"  Successfully Processed:  {processed:N0}");
@@ -80,19 +82,19 @@ public class DataLossTracker
 
         if (lost == 0)
         {
-            Console.WriteLine("\n  ✅ No data loss detected - perfect system efficiency!");
+            Console.WriteLine("\n   No data loss detected - perfect system efficiency!");
         }
         else if (lossPercent < 1)
         {
-            Console.WriteLine("\n  ✅ Low data loss (< 1%) - system performing well");
+            Console.WriteLine("\n   Low data loss (< 1%) - system performing well");
         }
         else if (lossPercent < 10)
         {
-            Console.WriteLine("\n  ⚠️  Moderate data loss (1-10%) - consider increasing buffer size");
+            Console.WriteLine("\n    Moderate data loss (1-10%) - consider increasing buffer size");
         }
         else
         {
-            Console.WriteLine("\n  🚨 High data loss (> 10%) - processor cannot keep up with producers");
+            Console.WriteLine("\n   High data loss (> 10%) - processor cannot keep up with producers");
             Console.WriteLine("     Consider: increasing buffer size, optimizing processor, or reducing producer speed");
         }
 

@@ -29,7 +29,7 @@ try
     // Create simulators for 4 devices
     var devices = new[] { "PUMP-001", "PUMP-002", "PUMP-003", "PUMP-004" };
     var simulatorTasks = devices.Select(deviceId =>
-        new DeviceSimulator(deviceId, channel, dataLossTracker).RunAsync(TimeSpan.FromMinutes(1), cts.Token)
+        new DeviceSimulator(deviceId, channel, dataLossTracker).RunAsync(TimeSpan.FromMinutes(5), cts.Token)
     ).ToList();
 
     // Create processor task

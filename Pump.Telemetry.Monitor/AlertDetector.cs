@@ -35,7 +35,7 @@ public class AlertDetector
             // Check 1: Pressure threshold
             if (reading.Pressure > PressureThreshold)
             {
-                alerts.Add($"🚨 HIGH PRESSURE ALERT [{reading.DeviceId}]: {reading.Pressure:F2} PSI (threshold: {PressureThreshold} PSI)");
+                alerts.Add($"HIGH PRESSURE ALERT [{reading.DeviceId}]: {reading.Pressure:F2} PSI (threshold: {PressureThreshold} PSI)");
             }
 
             // Check 2: Sequence number continuity
@@ -43,13 +43,13 @@ public class AlertDetector
             {
                 if (reading.SequenceNumber != lastSeq + 1)
                 {
-                    alerts.Add($"⚠️  OUT-OF-ORDER SEQUENCE [{reading.DeviceId}]: Expected {lastSeq + 1}, got {reading.SequenceNumber}");
+                    alerts.Add($"OUT-OF-ORDER SEQUENCE [{reading.DeviceId}]: Expected {lastSeq + 1}, got {reading.SequenceNumber}");
                 }
             }
             else
             {
                 // First time seeing this device
-                alerts.Add($"ℹ️  New device added: {reading.DeviceId}");
+                alerts.Add($"New device added: {reading.DeviceId}");
             }
 
             _lastSequencePerDevice[reading.DeviceId] = reading.SequenceNumber;
@@ -74,7 +74,7 @@ public class AlertDetector
                 var silenceDuration = (currentTime - lastSeen).TotalSeconds;
                 if (silenceDuration > SilenceThresholdSeconds)
                 {
-                    alerts.Add($"🔇 DEVICE SILENT [{deviceId}]: No reading for {silenceDuration:F1} seconds");
+                    alerts.Add($"DEVICE SILENT [{deviceId}]: No reading for {silenceDuration:F1} seconds");
                 }
             }
         }

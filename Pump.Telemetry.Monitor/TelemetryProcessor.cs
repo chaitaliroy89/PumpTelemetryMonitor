@@ -48,7 +48,7 @@ public class TelemetryProcessor
                 var readingAlerts = _alertDetector.AnalyzeReading(reading);
 
                 // Print normal reading
-                Console.WriteLine($"  → {reading}");
+                Console.WriteLine($"  {reading}");
 
                 // Print any alerts from analysis
                 foreach (var alert in readingAlerts)

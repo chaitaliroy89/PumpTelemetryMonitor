@@ -144,14 +144,3 @@ Press Ctrl+C at any time for graceful shutdown.
 - **Latency**: <1ms from reading generation to alert output
 - **Throughput**: ~5,000+ readings/second on modern hardware
 
-## Future Enhancements (Out of Scope)
-
-- Database persistence for historical readings
-- Event webhooks for external alerting systems
-- Web dashboard for real-time visualization
-- Configuration file for thresholds and device setup
-- Metrics/logging framework integration
-
-## License
-
-Sample project for educational purposes.
